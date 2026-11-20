@@ -1,0 +1,5 @@
+# local dependencies and editor files
+.env
+.env.local
+.DS_Store
+.vscode/
