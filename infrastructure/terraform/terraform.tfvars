@@ -1,0 +1,1 @@
+bucket_name = "birdwatching-rawdata-liesa-20261120"
