@@ -13,6 +13,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check AWS Role Variable
+        env:
+          AWS_ROLE_ARN: ${{ vars.AWS_ROLE_ARN }}
+        run: |
+          if [ -z "$AWS_ROLE_ARN" ]; then
+            echo "::error::AWS_ROLE_ARN is empty"
+            exit 1
+          fi
+          echo "AWS_ROLE_ARN is configured"
+
+      - name: Check OIDC Availability
+        run: |
+          if [ -z "${ACTIONS_ID_TOKEN_REQUEST_URL:-}" ]; then
+            echo "::error::OIDC token request URL is missing"
+            exit 1
+          fi
+          echo "OIDC token request is available"
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
